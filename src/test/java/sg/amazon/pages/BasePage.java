@@ -3,6 +3,7 @@ package sg.amazon.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import sg.amazon.utilities.Driver;
 
 public abstract class BasePage {
@@ -22,6 +23,32 @@ public abstract class BasePage {
 
     @FindBy (css= "#nav-al-wishlist>a")
     public WebElement createAList;
+
+    @FindBy (id= "searchDropdownBox")
+    public WebElement allMenuDropDown;
+
+    public Select productsNameinMenu(){
+        Select select = new Select(allMenuDropDown);
+        return select;
+    }
+
+    @FindBy (xpath= "//span[@id='nav-search-label-id']")
+    public WebElement verifyProductNameTrue;
+
+
+    @FindBy (id= "twotabsearchtextbox")
+    public WebElement searchBox;
+
+
+    @FindBy (id= "nav-search-submit-button")
+    public WebElement searchButton;
+
+    @FindBy (xpath= "//span[contains(text(), 'Shampoo')]")
+    public WebElement result;
+
+
+
+
 
 
 }
