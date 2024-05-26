@@ -24,17 +24,13 @@ public abstract class BasePage {
     @FindBy (css= "#nav-al-wishlist>a")
     public WebElement createAList;
 
-    @FindBy (id= "searchDropdownBox")
+    @FindBy (xpath= "//select[@id='searchDropdownBox']")
     public WebElement allMenuDropDown;
 
     public Select productsNameinMenu(){
         Select select = new Select(allMenuDropDown);
         return select;
     }
-
-    @FindBy (xpath= "//span[@id='nav-search-label-id']")
-    public WebElement verifyProductNameTrue;
-
 
     @FindBy (id= "twotabsearchtextbox")
     public WebElement searchBox;

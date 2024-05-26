@@ -11,23 +11,6 @@ public class YourListPage extends BasePage{
     public WebElement createNewList;
 
 
-    @FindBy(xpath = "(//input[@class='a-button-input a-declarative'])[1]")
-    public WebElement cancelButton;
-
-    @FindBy(xpath = "//img[@alt='More Options']")
-    public WebElement ucNokta;
-
-    @FindBy(id = "editYourList")
-    public WebElement manageList;
-
-    @FindBy(xpath = "//span[text()='Delete list']")
-    public WebElement deleteButton;
-
-
-    @FindBy(xpath = "//span[@id='list-delete-confirm-announce']")
-    public WebElement yeSButton;
-
-
 
 
 
