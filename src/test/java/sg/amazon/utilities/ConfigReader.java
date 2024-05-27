@@ -8,9 +8,9 @@ public class ConfigReader {
     static {
         String path = "configuration.properties";
         try {
-            FileInputStream fis = new FileInputStream(path); //configuration.properties'e ulasmak icin yazilir
+            FileInputStream fis = new FileInputStream(path);
             properties = new Properties();
-            properties.load(fis); //configuration.properties'ten alinan bilgileri properties objesine yüklemek icin
+            properties.load(fis);
         } catch (Exception e) {
             e.printStackTrace();
         }

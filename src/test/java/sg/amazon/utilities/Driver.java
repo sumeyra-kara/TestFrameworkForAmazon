@@ -16,11 +16,9 @@ import java.util.concurrent.TimeUnit;
 public class Driver {
     private Driver() {
     }
-
-    private static WebDriver driver; //null
-
+    private static WebDriver driver;
     public static WebDriver getDriver() {
-        String browser = ConfigReader.getProperty("browser"); //chrome, firefox
+        String browser = ConfigReader.getProperty("browser");
         if (driver == null) {
             switch (browser.toLowerCase()) {
                 case "chrome":
@@ -65,14 +63,10 @@ public class Driver {
                 default:
                     System.out.println("Invalid driver");
             }
-
-
-
         }
 
         return driver;
     }
-
 
     public static void closeDriver(){
         if (driver != null){
@@ -80,6 +74,4 @@ public class Driver {
             driver = null;
         }
     }
-
-
 }

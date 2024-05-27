@@ -6,8 +6,6 @@ import sg.amazon.utilities.BrowserUtils;
 import sg.amazon.utilities.ConfigReader;
 
 public class LoginPage extends BasePage{
-
-
     @FindBy(id = "ap_email")
     public WebElement inputEmail;
 

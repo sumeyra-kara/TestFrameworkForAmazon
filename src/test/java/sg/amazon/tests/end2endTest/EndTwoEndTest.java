@@ -1,5 +1,4 @@
 package sg.amazon.tests.end2endTest;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.testng.Assert;
@@ -12,80 +11,50 @@ import sg.amazon.utilities.BrowserUtils;
 import sg.amazon.utilities.ConfigReader;
 import sg.amazon.utilities.Driver;
 
-
 public class EndTwoEndTest extends TestBase {
     LoginPage loginPage=new LoginPage();
     YourListPage yourListPage=new YourListPage();
     BasePage basePage = new LoginPage();
-
     @Test
     public void amazonTest() {
-
         try {
             extentLogger = reports.createTest("Amazon End To End Test");
-
-            extentLogger.info("Login with valid credentials");// 1
+            extentLogger.info("Login with valid credentials");
             Driver.getDriver().get(ConfigReader.getProperty("url"));
-            loginPage.login(); //2
+            loginPage.login();
 
-            extentLogger.info("Verify that login is successful"); //3
+            extentLogger.info("Verify that login is successful");
             Assert.assertTrue(basePage.accountName.getText().contains(ConfigReader.getProperty("username")));
 
-            extentLogger.info("Erstellen Sie eine neue Liste unter Account and Lists");// 4
-            BrowserUtils.hover(loginPage.accountAndLists);
+            extentLogger.info("Erstellen Sie eine neue Liste unter Account and Lists");
+            BrowserUtils.hover(basePage.accountAndLists);
             basePage.createAList.click();
             BrowserUtils.clickWithJS(yourListPage.createAListButton);
             BrowserUtils.waitFor(3);
             wait.until(ExpectedConditions.elementToBeClickable(yourListPage.createNewList)).click();
 
-            extentLogger.info("Wählen Sie eine beliebige Kategorie links neben dem Suchfeld");// 5
+            extentLogger.info("Wählen Sie eine beliebige Kategorie links neben dem Suchfeld");
             BrowserUtils.waitFor(3);
             basePage.allMenuDropDown.click();
-            basePage.productsNameinMenu().selectByVisibleText("Baby");
+            basePage.productsNameInMenu().selectByVisibleText("Baby");
 
-            extentLogger.info("Verifizieren Sie, dass die Kategorie ausgewählt wurde");// 6
-            Assert.assertTrue(basePage.productsNameinMenu().getFirstSelectedOption().getText().contains("Baby"));
+            extentLogger.info("Verifizieren Sie, dass die Kategorie ausgewählt wurde");
+            Assert.assertTrue(basePage.productsNameInMenu().getFirstSelectedOption().getText().contains("Baby"));
 
             extentLogger.info("Geben Sie ein Produkt in das Suchfeld ein und suchen Sie");
-            basePage.searchBox.sendKeys("Shampoo"); // 7
+            basePage.searchBox.sendKeys("Shampoo");
             basePage.searchButton.click();
 
-            extentLogger.info("Verifizieren Sie, dass die Ergebnisse das Produkt enthalten"); //8
+            extentLogger.info("Verifizieren Sie, dass die Ergebnisse das Produkt enthalten");
             Assert.assertTrue(basePage.result.isDisplayed());
-
             extentLogger.pass("Test Passed!");
-
 
         } catch (Exception e){
             e.printStackTrace();
         } finally {
             driver.quit();
         }
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

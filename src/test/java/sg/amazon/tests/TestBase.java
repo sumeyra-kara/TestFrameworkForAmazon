@@ -19,28 +19,20 @@ import sg.amazon.utilities.Driver;
 import java.time.Duration;
 
 public class TestBase {
-    /*
- TestBase class'ini bu class'i parent edinecek class'larda driver olusturmamak ve ayarlari yeniden
- yapmamak icin kullaniyoruz.
-  */
     protected WebDriver driver;
     protected JavascriptExecutor jse;
     protected WebDriverWait wait;
     protected Actions actions;
-    protected ExtentReports reports; // extent report'a ilk atama yapar
-    protected ExtentSparkReporter htmlReporter; // html raporu duzenler(eski sürümde ExtentHtmlReporter;)open in ile de dosyayi acabiliriz
-    protected ExtentTest extentLogger; // test pass veya failed gibi bilgileri kaydeder
-
-
-    @BeforeTest // test islemine baslamadan önce (tüm test isleminden önce)
+    protected ExtentReports reports;
+    protected ExtentSparkReporter htmlReporter;
+    protected ExtentTest extentLogger;
+    @BeforeTest
     public void setUpTest() {
-        reports = new ExtentReports(); // raporlamayi baslatir- um einige report zu erstellen, müssen wir diese Object benuzen
+        reports = new ExtentReports();
         String projectPath = System.getProperty("user.dir");
         String path = projectPath+"/test-output/reports.html";
-        // olusturmak istedigimiz raporu(html formatinda) baslatiyoruz, path ile de dosya yolunu belirliyoruz
         htmlReporter = new ExtentSparkReporter(path);
         reports.attachReporter(htmlReporter);
-        // istedigimiz bilgileri buraya ekleyebiliriz
         htmlReporter.config().setReportName("Batch16 Regression Test");
         reports.setSystemInfo("Enviroment","Produktion");
         reports.setSystemInfo("Browser", ConfigReader.getProperty("browser"));
@@ -50,9 +42,8 @@ public class TestBase {
 
     @AfterTest
     public void tearDownTest() {
-        reports.flush(); // raporlamayi sonlandirmak icin
+        reports.flush();
     }
-
 
     @BeforeMethod
     public void setUp() {
@@ -62,18 +53,14 @@ public class TestBase {
         actions=new Actions(driver);
     }
 
-    @AfterMethod // her test methodundan sonra eger testte hata varsa ekran görüntüsünü alip rapora ekliyor.
+    @AfterMethod
     public void tearDown(ITestResult result) {
-
-        if (result.getStatus()==ITestResult.FAILURE){ // eger testin sonucu basarisizsa
+        if (result.getStatus()==ITestResult.FAILURE){
             extentLogger.fail(result.getName());
             String screenshotPath = BrowserUtils.takeScreenshot(result.getName());
             extentLogger.addScreenCaptureFromPath(screenshotPath);
-            extentLogger.fail(result.getThrowable()); // exceptionmessage, hata mesaji listeler
-
+            extentLogger.fail(result.getThrowable());
         }
-
-        //WebDriverFactory.wait(3);
-        //Driver.closeDriver();
+        Driver.closeDriver();
     }
 }
