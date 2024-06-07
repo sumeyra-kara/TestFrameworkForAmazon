@@ -61,6 +61,6 @@ public class TestBase {
             extentLogger.addScreenCaptureFromPath(screenshotPath);
             extentLogger.fail(result.getThrowable());
         }
-        Driver.closeDriver();
+       // Driver.closeDriver();
     }
 }

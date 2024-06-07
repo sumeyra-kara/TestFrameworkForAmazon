@@ -19,9 +19,6 @@ public abstract class BasePage {
     @FindBy (id= "nav-link-accountList-nav-line-1")
     public WebElement accountName;
 
-    @FindBy (css= "#nav-al-wishlist>a")
-    public WebElement createAList;
-
     @FindBy (xpath= "//select[@id='searchDropdownBox']")
     public WebElement allMenuDropDown;
 

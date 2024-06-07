@@ -1,4 +1,7 @@
 package sg.amazon.tests.end2endTest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.testng.Assert;
@@ -10,6 +13,8 @@ import sg.amazon.tests.TestBase;
 import sg.amazon.utilities.BrowserUtils;
 import sg.amazon.utilities.ConfigReader;
 import sg.amazon.utilities.Driver;
+
+import java.util.List;
 
 public class EndTwoEndTest extends TestBase {
     LoginPage loginPage=new LoginPage();
@@ -28,10 +33,31 @@ public class EndTwoEndTest extends TestBase {
 
             extentLogger.info("Erstellen Sie eine neue Liste unter Account and Lists");
             BrowserUtils.hover(basePage.accountAndLists);
-            basePage.createAList.click();
+            System.out.println("yourListPage.list.getText() = " + yourListPage.list.get(0).getText());
+            BrowserUtils.waitFor(2);
+
+            int number=yourListPage.list.size();
+            if (yourListPage.list.size()>1){
+                yourListPage.list.get(0).click();
+                for (int i = 1; i <number ; i++) {
+                    System.out.println("loop");
+                    BrowserUtils.clickWithJS(yourListPage.more);
+                    BrowserUtils.waitFor(2);
+                    BrowserUtils.clickWithJS(yourListPage.manageList);
+                    BrowserUtils.clickWithJS(yourListPage.deleteList);
+                    BrowserUtils.waitFor(2);
+                    BrowserUtils.clickWithJS(yourListPage.yesButton);
+                }
+                BrowserUtils.waitFor(2);
+                BrowserUtils.hover(basePage.accountAndLists);
+            }
+            BrowserUtils.clickWithJS(yourListPage.list.get(0));
+            BrowserUtils.waitFor(3);
             BrowserUtils.clickWithJS(yourListPage.createAListButton);
             BrowserUtils.waitFor(3);
-            wait.until(ExpectedConditions.elementToBeClickable(yourListPage.createNewList)).click();
+            BrowserUtils.clickWithJS( yourListPage.innerCreateList);
+            BrowserUtils.waitFor(3);
+
 
             extentLogger.info("Wählen Sie eine beliebige Kategorie links neben dem Suchfeld");
             BrowserUtils.waitFor(3);
@@ -49,23 +75,24 @@ public class EndTwoEndTest extends TestBase {
             Assert.assertTrue(basePage.result.isDisplayed());
             extentLogger.pass("Test Passed!");
 
+
         } catch (Exception e){
             e.printStackTrace();
         } finally {
-            driver.quit();
+           driver.quit();
         }
     }
 
 
 }
 /**
- * Gehen Sie https://www.amazon.sg/ --1
+ * Gehen Sie https://www.amazon.sg/
  * Akzeptieren, wenn Cookies vorhanden sind
- * Melden Sie sich mit gültigen Informationen an --2
- * Verifizieren Sie, dass die Anmeldung erfolgreich war---- 3
- * Erstellen Sie eine neue Liste unter "Account and Lists".--4
- * Wählen Sie eine beliebige Kategorie links neben dem Suchfeld --5
- * Verifizieren Sie, dass die Kategorie ausgewählt wurde ---6   ????
- * Geben Sie ein Produkt in das Suchfeld ein und suchen Sie---7
- * Verifizieren Sie, dass die Ergebnisse das Produkt enthalten--8
+ * Melden Sie sich mit gültigen Informationen an
+ * Verifizieren Sie, dass die Anmeldung erfolgreich war
+ * Erstellen Sie eine neue Liste unter "Account and Lists".
+ * Wählen Sie eine beliebige Kategorie links neben dem Suchfeld
+ * Verifizieren Sie, dass die Kategorie ausgewählt wurde
+ * Geben Sie ein Produkt in das Suchfeld ein und suchen Sie
+ * Verifizieren Sie, dass die Ergebnisse das Produkt enthalten
  */
